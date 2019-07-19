@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 
 public class CompletePlayerController : MonoBehaviour {
 
+
+   // public AudioClip newTrack;
+
+    //private AudioManager theAM;
+
     private bool immune;
 
     public float speed;             //Floating point variable to store the player's movement speed.
@@ -26,8 +31,9 @@ public class CompletePlayerController : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D> ();
         candyCollected = 0;
         immune = false;
-    }
 
+     //   theAM = FindObjectOfType<AudioManager>();
+    }
 
     //FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
     void FixedUpdate()
@@ -78,7 +84,11 @@ public class CompletePlayerController : MonoBehaviour {
             candyCollected += 1;
         }
         if (candyCollected == candyCount){
+            
             SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
+            
+            //if(newTrack != null)
+            //theAM.ChangeBGM(newTrack);
 
         }
         if(other.gameObject.CompareTag("Immune")){
