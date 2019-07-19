@@ -119,6 +119,8 @@ MonoBehaviour:
   maxpos: 4.5
   minpos: -4.5
   candyCount: 4
+  dialogue: {fileID: 2733275672473703031, guid: 73faee3d71af96e44bdc39bda1576bc1,
+    type: 3}
 --- !u!58 &2999689440134161342
 CircleCollider2D:
   m_ObjectHideFlags: 0

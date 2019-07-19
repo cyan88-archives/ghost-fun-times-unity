@@ -2,27 +2,42 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 
 public class CompletePlayerController : MonoBehaviour {
 
 
-   // public AudioClip newTrack;
+   
 
-    //private AudioManager theAM;
-
+    //antidote
     private bool immune;
 
+  
+  //movement
     public float speed;             //Floating point variable to store the player's movement speed.
 
     private Rigidbody2D rb2d;       //Store a reference to the Rigidbody2D component required to use 2D Physics.
 
     public float maxpos;
     public float minpos;
+   
+   //candy count
     public float candyCount;
 
     private float candyCollected;
 
+
+    //dialogue
+    public Text dialogue;
+    public string dialogueOne;
+    public string dialogueTwo;
+    public string dialogueThree;
+    public string dialogueFour;
+
+    private int dialogueNum;
+
+    private int nextUpdate = 1;
 
     // Use this for initialization
     void Start()
@@ -31,8 +46,41 @@ public class CompletePlayerController : MonoBehaviour {
         rb2d = GetComponent<Rigidbody2D> ();
         candyCollected = 0;
         immune = false;
+        dialogueNum = 0;
 
-     //   theAM = FindObjectOfType<AudioManager>();
+    }
+
+    void Update()
+    {
+        if(Time.time>=nextUpdate)
+        {
+            
+            if (Input.GetKey("up") || Input.GetKey("down") || Input.GetKey("right") || Input.GetKey("w") || Input.GetKey("a") || Input.GetKey("s") || Input.GetKey("d") || Input.GetKey("left"))
+        {
+            dialogueNum+=1;   
+            switch (dialogueNum)
+            {
+            case 1:
+            dialogue.text = dialogueOne;
+            break;
+            case 2:
+            dialogue.text = dialogueTwo;
+            break;
+            case 3:
+            dialogue.text = dialogueThree;
+            break;
+            case 4:
+            dialogue.text = dialogueFour;
+            break;
+            }         
+        }
+        
+        nextUpdate=Mathf.FloorToInt(Time.time)+2;
+
+        }
+
+        
+
     }
 
     //FixedUpdate is called at a fixed interval and is independent of frame rate. Put physics code here.
@@ -73,7 +121,7 @@ public class CompletePlayerController : MonoBehaviour {
            if (!immune)
            {
                 Destroy(gameObject);
-                SceneManager.LoadScene(6);
+                SceneManager.LoadScene(7);
            }
            else
                immune = false;
@@ -86,9 +134,6 @@ public class CompletePlayerController : MonoBehaviour {
         if (candyCollected == candyCount){
             
             SceneManager.LoadScene (SceneManager.GetActiveScene ().buildIndex + 1);
-            
-            //if(newTrack != null)
-            //theAM.ChangeBGM(newTrack);
 
         }
         if(other.gameObject.CompareTag("Immune")){
